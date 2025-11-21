@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ExceptionMessageSeparation/ExceptionMessageSeparation.csproj" />
+  <Project Path="ExceptionMessageSeparation.Tests/ExceptionMessageSeparation.Tests.csproj" />
+</Solution>
