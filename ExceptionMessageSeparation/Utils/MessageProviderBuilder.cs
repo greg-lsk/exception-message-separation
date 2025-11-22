@@ -5,21 +5,20 @@ namespace ExceptionMessageSeparation.Utils;
 
 internal static class MessageProviderBuilder
 {
-    internal static Func<ExceptionBase, string> Build(ExceptionBase exception)
+    internal static Func<Exception, string> Build(Exception exception)
     {
         var messageType = ReflectionUtils.GetMessageType(exception);
-        if (messageType is null) return (ExceptionBase e) => string.Empty;
+        if (messageType is null) return ex => string.Empty;
         var messageInstance = Activator.CreateInstance(messageType);
 
-        var method = messageType.GetMethod("For") ?? throw new Exception("Couldn't retrieve method For");
+        var method = messageType.GetMethod("For", [exception.GetType()]) 
+            ?? throw new Exception("Couldn't retrieve method For");
 
-        var childExceptionType = ReflectionUtils.GetChildExceptionType(messageType);
-
-        var parameter = Expression.Parameter(typeof(ExceptionBase), "exception");
-        var castedParameter = Expression.Convert(parameter, childExceptionType);
+        var parameter = Expression.Parameter(typeof(Exception), "exception");
+        var castedParameter = Expression.Convert(parameter, exception.GetType());
 
         var methodCall = Expression.Call(Expression.Constant(messageInstance), method, castedParameter);
 
-        return Expression.Lambda<Func<ExceptionBase, string>>(methodCall, parameter).Compile();
+        return Expression.Lambda<Func<Exception, string>>(methodCall, parameter).Compile();
     }
 }

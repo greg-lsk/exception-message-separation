@@ -13,7 +13,7 @@ namespace ExceptionMessageSeparation;
 /// </remarks>
 public abstract class ExceptionBase : Exception
 {
-    private readonly Func<ExceptionBase, string> _getMessage;
+    private readonly Func<Exception, string> _getMessage;
 
     public override string Message => _getMessage(this);
 

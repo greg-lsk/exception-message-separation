@@ -2,7 +2,7 @@
 
 internal static class ReflectionUtils
 {
-    internal static Type? GetMessageType(ExceptionBase exception)
+    internal static Type? GetMessageType(Exception exception)
     {
         var retrievedTypes = exception.GetType()
                                       .GetInterfaces()
@@ -13,21 +13,7 @@ internal static class ReflectionUtils
         {
             0 => null,
             1 => retrievedTypes.First(),
-            _ => retrievedTypes.Last()
-        };
-    }
-
-    internal static Type? GetChildExceptionType(Type messageType)
-    {
-        var retirevedTypes = messageType.GetInterfaces()
-                                        .Where(i => i.HasGenericDefinitionOf(typeof(IExceptionMessage<>)))
-                                        .Select(i => i.GetGenericArguments()[0]);
-
-        return retirevedTypes.Count() switch
-        {
-            0 => throw new Exception("Exception found with dictated message, but message is not bound to exception"),
-            1 => retirevedTypes.First(),
-            _ => throw new Exception("A message can only implement one IExceptionMessage<> interface")
+            _ => retrievedTypes.Last()//throw new Exception("An exception can only implement one IHaveMessage<> interface")
         };
     }
 }
