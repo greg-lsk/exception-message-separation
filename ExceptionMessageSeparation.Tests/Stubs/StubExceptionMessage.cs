@@ -1,11 +1,8 @@
-﻿using System;
+﻿using ExceptionMessageSeparation.Tests.Stubs.Common;
 
 namespace ExceptionMessageSeparation.Tests.Stubs;
 
-internal static class StubExceptionMessage
+internal class StubExceptionMessage : IExceptionMessage<StubException>
 {
-    internal static string Get(int i, string s) =>
-    $"{Environment.NewLine}" +
-    $"{Environment.NewLine}Int Value::    {i}" +
-    $"{Environment.NewLine}String Value:: {s}";
+    public string For(StubException exception) => StubExceptionBaseMessage.Get(exception.AnIntValue, exception.AStringValue);
 }

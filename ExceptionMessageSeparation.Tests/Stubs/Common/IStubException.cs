@@ -1,4 +1,4 @@
-﻿namespace ExceptionMessageSeparation.Tests.Stubs;
+﻿namespace ExceptionMessageSeparation.Tests.Stubs.Common;
 
 public interface IStubException
 {
