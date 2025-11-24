@@ -18,7 +18,4 @@ internal static class ReflectionUtils
             _ => retrievedTypes.Last()
         };
     }
-
-    internal static bool ImplementsInterface<TCaptured>(Type iface) 
-        => typeof(TCaptured).GetInterfaces().Any(i => i.HasGenericDefinitionOf(iface));
 }
