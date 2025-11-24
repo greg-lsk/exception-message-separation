@@ -9,8 +9,8 @@ public class ForAssigningExceptionProperties
     internal void WithMessage_AssignsValue_Correctly()
     {
         var expectedMessage = "a message";
-        var capturedInfo = new StubExceptionCapturedInfo(10);
-        var exception = ExceptionWith<StubExceptionCapturedInfo>.Capture(capturedInfo)
+        var capturedInfo = new StubExceptionInfo(10);
+        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
                                                                 .WithMessage(expectedMessage)
                                                                 .Build();
 
@@ -23,8 +23,8 @@ public class ForAssigningExceptionProperties
     internal void WithInnerException_AssignsValue_Correctly()
     {
         var expectedInnerException = new InvalidCastException();
-        var capturedInfo = new StubExceptionCapturedInfo(10);
-        var exception = ExceptionWith<StubExceptionCapturedInfo>.Capture(capturedInfo)
+        var capturedInfo = new StubExceptionInfo(10);
+        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
                                                                 .WithInnerException(expectedInnerException)
                                                                 .Build();
 
@@ -37,8 +37,8 @@ public class ForAssigningExceptionProperties
     internal void WithHResult_AssignsValue_Correctly()
     {
         var expectedHResult = 80;
-        var capturedInfo = new StubExceptionCapturedInfo(10);
-        var exception = ExceptionWith<StubExceptionCapturedInfo>.Capture(capturedInfo)
+        var capturedInfo = new StubExceptionInfo(10);
+        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
                                                                 .WithHResult(expectedHResult)
                                                                 .Build();
 
@@ -51,8 +51,8 @@ public class ForAssigningExceptionProperties
     internal void WithSource_AssignsValue_Correctly()
     {
         var expectedSouce = nameof(WithSource_AssignsValue_Correctly);
-        var capturedInfo = new StubExceptionCapturedInfo(10);
-        var exception = ExceptionWith<StubExceptionCapturedInfo>.Capture(capturedInfo)
+        var capturedInfo = new StubExceptionInfo(10);
+        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
                                                                 .WithSource(expectedSouce)
                                                                 .Build();
 
@@ -65,8 +65,8 @@ public class ForAssigningExceptionProperties
     internal void WithHelpLink_AssignsValue_Correctly()
     {
         var expectedHelpLink = "https:// fakelink domain";
-        var capturedInfo = new StubExceptionCapturedInfo(10);
-        var exception = ExceptionWith<StubExceptionCapturedInfo>.Capture(capturedInfo)
+        var capturedInfo = new StubExceptionInfo(10);
+        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
                                                                 .WithHelpLink(expectedHelpLink)
                                                                 .Build();
 

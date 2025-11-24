@@ -3,7 +3,7 @@
 
 namespace ExceptionMessageSeparation.Tests._Stubs.BaseException;
 
-internal class StubExceptionMessage : IExceptionMessage<StubExceptionCapturedInfo>
+internal class StubExceptionMessage : IExceptionMessage<StubExceptionInfo>
 {
-    public string For(IMessageCreationContext<StubExceptionCapturedInfo> context) => $"{context.Captured.AnIntValue}";
+    public string For(IMessageCreationContext<StubExceptionInfo> context) => $"{context.Captured.AnIntValue}";
 }
