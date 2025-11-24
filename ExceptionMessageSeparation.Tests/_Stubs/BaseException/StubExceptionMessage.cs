@@ -1,6 +1,6 @@
-﻿namespace ExceptionMessageSeparation.Tests.Stubs.BaseException;
+﻿namespace ExceptionMessageSeparation.Tests._Stubs.BaseException;
 
-internal class StubExceptionMessage : IExceptionMessage<StubException>
+internal class StubExceptionMessage : IExceptionMessage<StubExceptionContext>
 {
-    public string For(StubException exception) => "StubExceptionMessage";
+    public string For(Exception<StubExceptionContext> exception) => $"{exception.Context.AnIntValue}";
 }

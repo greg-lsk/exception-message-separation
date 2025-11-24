@@ -2,10 +2,9 @@
 
 internal static class ReflectionUtils
 {
-    internal static Type? GetMessageType(Exception exception)
+    internal static Type? GetMessageType<T>()
     {
-        var retrievedTypes = exception.GetType()
-                                      .GetInterfaces()
+        var retrievedTypes = typeof(T).GetInterfaces()
                                       .Where(i => i.HasGenericDefinitionOf(typeof(IHaveMessage<>)))
                                       .Select(i => i.GetGenericArguments()[0]);
 
@@ -16,4 +15,6 @@ internal static class ReflectionUtils
             _ => retrievedTypes.Last()//throw new Exception("An exception can only implement one IHaveMessage<> interface")
         };
     }
+
+    internal static bool ImplementsInterface<T>(Type iface) => typeof(T).GetInterfaces().Any(i => i.HasGenericDefinitionOf(iface));
 }
