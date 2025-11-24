@@ -4,11 +4,11 @@ using System.Collections;
 
 namespace ExceptionMessageSeparation.MessageCreation;
 
-public interface IMessageCreationContext<T>
+public interface IMessageCreationContext<TCaptured>
 {
     public int HResult { get; }
 
-    public T Context { get; }
+    public TCaptured Captured { get; }
 
     public Exception? InnerException { get; }
 

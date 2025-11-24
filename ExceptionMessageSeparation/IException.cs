@@ -4,13 +4,13 @@ using System.Reflection;
 
 namespace ExceptionMessageSeparation;
 
-public interface IException<T>
+public interface IException<TCaptured>
 {
     public int HResult { get; set; }
 
     public string Message { get; }
 
-    public T Context { get; }
+    public TCaptured Captured { get; }
 
     public Exception? InnerException { get; }
 

@@ -1,19 +1,21 @@
 ﻿using ExceptionMessageSeparation.MessageCreation;
 
+
 namespace ExceptionMessageSeparation.Utils;
 
 internal static class MessageProvider
 {
-    internal static string GetFor<T>(Exception<T> exception) => ReflectionUtils.ImplementsInterface<T>(typeof(IHaveMessage<>)) switch
+    internal static string GetFor<TCaptured>(Exception<TCaptured> exception) 
+        => ReflectionUtils.ImplementsInterface<TCaptured>(typeof(IHaveMessage<>)) switch
     { 
         false => string.Empty,
         true  => GetViaReflection(exception)
     };
 
 
-    private static string GetViaReflection<T>(Exception<T> exception)
+    private static string GetViaReflection<TCaptured>(Exception<TCaptured> exception)
     {
-        var messageType = ReflectionUtils.GetMessageType<T>()
+        var messageType = ReflectionUtils.GetMessageType<TCaptured>()
             ??throw new Exception("This shouldn't happen");
 
         var messageInstance = Activator.CreateInstance(messageType)

@@ -1,8 +1,9 @@
 ﻿using ExceptionMessageSeparation.MessageCreation;
 
+
 namespace ExceptionMessageSeparation.Tests._Stubs.BaseException;
 
-internal class StubExceptionMessage : IExceptionMessage<StubExceptionContext>
+internal class StubExceptionMessage : IExceptionMessage<StubExceptionCapturedInfo>
 {
-    public string For(IMessageCreationContext<StubExceptionContext> context) => $"{context.Context.AnIntValue}";
+    public string For(IMessageCreationContext<StubExceptionCapturedInfo> context) => $"{context.Captured.AnIntValue}";
 }
