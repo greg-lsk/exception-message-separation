@@ -8,7 +8,7 @@ internal static class ReflectionUtils
     internal static Type? GetMessageType<TCaptured>()
     {
         var retrievedTypes = typeof(TCaptured).GetInterfaces()
-                                              .Where(i => i.HasGenericDefinitionOf(typeof(IHaveMessage<>)))
+                                              .Where(i => i.GetGenericTypeDefinition() == typeof(IHaveMessage<>))
                                               .Select(i => i.GetGenericArguments()[0]);
 
         return retrievedTypes.Count() switch

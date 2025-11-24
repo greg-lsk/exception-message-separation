@@ -1,4 +1,5 @@
-﻿using ExceptionMessageSeparation.Exceptions.UnableToCast;
+﻿using ExceptionMessageSeparation.MessageCreation;
+using ExceptionMessageSeparation.Exceptions.UnableToCast;
 using ExceptionMessageSeparation.Exceptions.UnableToCreateInstance;
 using ExceptionMessageSeparation.Exceptions.UnableToRetrieveMethod;
 
@@ -18,7 +19,7 @@ internal static class MessageProvider
             .Capture(new(messageType))
             .Build();
 
-        var methodName = "For";
+        var methodName = nameof(IExceptionMessage<TCaptured>.For);
         var method = messageType.GetMethod(methodName, [exception.GetType()])
             ?? throw ExceptionWith<UnableToRetrieveMethodInfo>
             .Capture(new(
