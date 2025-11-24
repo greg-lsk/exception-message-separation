@@ -9,9 +9,7 @@ public interface IException<TCaptured>
     public int HResult { get; set; }
 
     public string Message { get; }
-
     public TCaptured Captured { get; }
-
     public Exception? InnerException { get; }
 
     public string? Source { get; set; }
