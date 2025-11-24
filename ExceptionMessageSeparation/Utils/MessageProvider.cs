@@ -1,37 +1,24 @@
 ﻿using ExceptionMessageSeparation.MessageCreation;
-using ExceptionMessageSeparation.Exceptions.UnableToCast;
-using ExceptionMessageSeparation.Exceptions.UnableToCreateInstance;
-using ExceptionMessageSeparation.Exceptions.UnableToRetrieveMethod;
 
 
 namespace ExceptionMessageSeparation.Utils;
 
-internal static class MessageProvider
+internal class MessageProvider(IReflection reflection) : IMessageProvider
 {
-    internal static string GetFor<TCaptured>(Exception<TCaptured> exception)
+    private readonly IReflection _reflection = reflection;
+
+
+    public string GetFor<TCaptured>(Exception<TCaptured> exception)
     {
-        var messageType = ReflectionUtils.GetMessageType<TCaptured>();
+        var messageType = _reflection.GetMessageType<TCaptured>();
 
         if (messageType is null) return string.Empty;
 
-        var messageInstance = Activator.CreateInstance(messageType)
-            ?? throw ExceptionWith<UnableToCreateInstanceInfo>
-            .Capture(new(messageType))
-            .Build();
-
+        var messageInstance = _reflection.CreateMessageInstance(messageType);
+            
         var methodName = nameof(IExceptionMessage<TCaptured>.For);
-        var method = messageType.GetMethod(methodName, [exception.GetType()])
-            ?? throw ExceptionWith<UnableToRetrieveMethodInfo>
-            .Capture(new(
-                messageType,
-                methodName,
-                [exception.GetType()]))
-            .Build();
+        var method = _reflection.MessageCreationMethod(messageType, methodName, [exception.GetType()]);
 
-        return method.Invoke(messageInstance, [exception]) as string
-            ?? throw ExceptionWith<UnableToCastInfo<object, string>>
-            .Capture(new())
-            .Build();
-
+        return _reflection.GetMessage(method, messageInstance, [exception]);
     }
 }
