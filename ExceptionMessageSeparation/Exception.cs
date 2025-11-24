@@ -14,7 +14,7 @@ public class Exception<TCaptured> : Exception, IException<TCaptured>, IMessageCr
     {
         Captured = captured;
 
-        if (message != null) Message = message;
+        if (message != null) { Message = message; return; }
         Message = MessageProvider.GetFor(this);
     }
 }
