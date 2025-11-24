@@ -1,4 +1,6 @@
-﻿namespace ExceptionMessageSeparation.Tests._Stubs.BaseException;
+﻿using ExceptionMessageSeparation.MessageCreation;
+
+namespace ExceptionMessageSeparation.Tests._Stubs.BaseException;
 
 internal class StubExceptionContext(int anIntValue) : IHaveMessage<StubExceptionMessage>
 {

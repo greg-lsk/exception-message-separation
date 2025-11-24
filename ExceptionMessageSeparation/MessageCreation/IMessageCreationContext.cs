@@ -1,25 +1,23 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Collections;
 
 
-namespace ExceptionMessageSeparation;
+namespace ExceptionMessageSeparation.MessageCreation;
 
-public interface IException<T>
+public interface IMessageCreationContext<T>
 {
-    public int HResult { get; set; }
-
-    public string Message { get; }
+    public int HResult { get; }
 
     public T Context { get; }
 
     public Exception? InnerException { get; }
 
-    public string? Source { get; set; }
+    public string? Source { get; }
     public string? StackTrace { get; }
     public MethodBase? TargetSite { get; }
 
     public IDictionary Data { get; }
-    public string? HelpLink { get; set; }
+    public string? HelpLink { get; }
 
 
     public Type GetType();

@@ -1,4 +1,6 @@
-﻿namespace ExceptionMessageSeparation.Utils;
+﻿using ExceptionMessageSeparation.MessageCreation;
+
+namespace ExceptionMessageSeparation.Utils;
 
 internal static class ReflectionUtils
 {

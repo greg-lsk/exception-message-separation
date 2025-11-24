@@ -1,5 +1,4 @@
 ﻿using ExceptionMessageSeparation.Tests._Stubs.BaseException;
-using ExceptionMessageSeparation.Tests.Stubs.BaseException;
 
 
 namespace ExceptionMessageSeparation.Tests;

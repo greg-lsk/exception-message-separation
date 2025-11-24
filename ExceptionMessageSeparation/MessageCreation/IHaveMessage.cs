@@ -1,4 +1,4 @@
-﻿namespace ExceptionMessageSeparation;
+﻿namespace ExceptionMessageSeparation.MessageCreation;
 
 /// <summary>
 /// Represents a contract for custom exception types that have a standart messaging logic.

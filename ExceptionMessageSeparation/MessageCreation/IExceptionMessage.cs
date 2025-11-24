@@ -1,4 +1,4 @@
-﻿namespace ExceptionMessageSeparation;
+﻿namespace ExceptionMessageSeparation.MessageCreation;
 
 /// <summary>
 /// Defines a contract for creating exception messages.
@@ -16,7 +16,7 @@ public interface IExceptionMessage<TContext>
     /// <summary>
     /// Creates the message for the specified exception.
     /// </summary>
-    /// <param name="exception">The exception for which to generate the message.</param>
+    /// <param name="context">The exception for which to generate the message.</param>
     /// <returns>A string representing the message for the exception.</returns>
-    public string For(Exception<TContext> exception);
+    public string For(IMessageCreationContext<TContext> context);
 }

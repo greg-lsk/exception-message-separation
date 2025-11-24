@@ -1,9 +1,10 @@
 ﻿using ExceptionMessageSeparation.Utils;
+using ExceptionMessageSeparation.MessageCreation;
 
 
 namespace ExceptionMessageSeparation;
 
-public class Exception<T> : Exception, IException<T>
+public class Exception<T> : Exception, IException<T>, IMessageCreationContext<T>
 {
     public T Context { get; }
     public override string Message { get; }
