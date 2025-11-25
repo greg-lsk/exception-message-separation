@@ -6,24 +6,32 @@ namespace ExceptionMessageSeparation;
 
 public class Exception<TCaptured> : Exception, IException<TCaptured>, IMessageCreationContext<TCaptured>
 {
-    private readonly IMessageProvider _messageProvider;
+    private readonly string? _message;
+    private readonly CreateMessage<TCaptured>? _createMessage;
 
     public TCaptured Captured { get; }
-    public override string Message { get; }
 
+    public override string Message
+    {
+        get 
+        {
+            if (_message is not null) return _message;
+            if (_createMessage is not null) return _createMessage(this);
+            return string.Empty;
+        }
+    }
 
-    internal Exception(IMessageProvider messageProvider, TCaptured captured, string? message = default, Exception? inner = default) 
+    internal Exception(IReflectionService reflection, TCaptured captured, string? message = default, Exception? inner = default) 
         : base(string.Empty, inner)
     {
-        _messageProvider = messageProvider;
-
         Captured = captured;
 
-        if (message != null) { Message = message; return; }
-        Message = _messageProvider.GetFor(this);
+        if (message != null) { _message = message; return; }
+        _createMessage = reflection.GetMessageCreationFor<TCaptured>();
     }
 
     public Exception(TCaptured captured, string? message = default, Exception? inner = default)
-        : this(new MessageProvider(new Reflection()), captured, message, inner) { }
+        : this(new ReflectionService(), captured, message, inner) 
+    { }
     
 }
