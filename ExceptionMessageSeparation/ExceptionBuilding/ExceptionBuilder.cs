@@ -1,5 +1,4 @@
-﻿
-namespace ExceptionMessageSeparation.ExceptionFluentBuilder;
+﻿namespace ExceptionMessageSeparation.ExceptionBuilding;
 
 internal sealed class ExceptionBuilder<TCaptured>(TCaptured captured) : IExceptionBuilder<TCaptured>
 {

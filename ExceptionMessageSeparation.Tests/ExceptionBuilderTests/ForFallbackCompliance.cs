@@ -17,7 +17,7 @@ public class ForFallbackCompliance
         var prebuiltException = new InvalidCastException();
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .Build();
+                                                        .Build();
 
         var expectedInnerException = prebuiltException.InnerException;
         var assignedInnerException = exception.InnerException;
@@ -31,7 +31,7 @@ public class ForFallbackCompliance
         var prebuiltException = new InvalidCastException();
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .Build();
+                                                        .Build();
 
         var expectedSource = prebuiltException.Source;
         var assignedSource = exception.Source;
@@ -45,7 +45,7 @@ public class ForFallbackCompliance
         var prebuiltException = new InvalidCastException();
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .Build();
+                                                        .Build();
 
         var expectedHelpLink = prebuiltException.HelpLink;
         var assignedHelpLink = exception.HelpLink;

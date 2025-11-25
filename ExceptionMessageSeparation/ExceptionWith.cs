@@ -1,4 +1,4 @@
-﻿using ExceptionMessageSeparation.ExceptionFluentBuilder;
+﻿using ExceptionMessageSeparation.ExceptionBuilding;
 
 
 namespace ExceptionMessageSeparation;

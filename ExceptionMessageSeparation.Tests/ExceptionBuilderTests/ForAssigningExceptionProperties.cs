@@ -11,8 +11,8 @@ public class ForAssigningExceptionProperties
         var expectedMessage = "a message";
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .WithMessage(expectedMessage)
-                                                                .Build();
+                                                        .WithMessage(expectedMessage)
+                                                        .Build();
 
         var assignedMessage = exception.Message;
 
@@ -25,8 +25,8 @@ public class ForAssigningExceptionProperties
         var expectedInnerException = new InvalidCastException();
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .WithInnerException(expectedInnerException)
-                                                                .Build();
+                                                        .WithInnerException(expectedInnerException)
+                                                        .Build();
 
         var assignedInnerException = exception.InnerException;
 
@@ -39,8 +39,8 @@ public class ForAssigningExceptionProperties
         var expectedHResult = 80;
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .WithHResult(expectedHResult)
-                                                                .Build();
+                                                        .WithHResult(expectedHResult)
+                                                        .Build();
 
         var assignedHResult = exception.HResult;
 
@@ -53,8 +53,8 @@ public class ForAssigningExceptionProperties
         var expectedSouce = nameof(WithSource_AssignsValue_Correctly);
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .WithSource(expectedSouce)
-                                                                .Build();
+                                                        .WithSource(expectedSouce)
+                                                        .Build();
 
         var assignedSource = exception.Source;
 
@@ -67,8 +67,8 @@ public class ForAssigningExceptionProperties
         var expectedHelpLink = "https:// fakelink domain";
         var capturedInfo = new StubExceptionInfo(10);
         var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                                .WithHelpLink(expectedHelpLink)
-                                                                .Build();
+                                                        .WithHelpLink(expectedHelpLink)
+                                                        .Build();
 
         var assignedHelpLink = exception.HelpLink;
 
