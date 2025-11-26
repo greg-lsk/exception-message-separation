@@ -1,9 +1,6 @@
-﻿using ExceptionMessageSeparation.MessageCreation;
+﻿namespace ExceptionMessageSeparation.MessageCreation;
 
-
-namespace ExceptionMessageSeparation.Utils;
-
-internal static class MessageCreation
+internal static class MessageCreationCore
 {
     internal static CreateMessage<TCaptured> Get<TCaptured, TMessage>()
         where TMessage : IExceptionMessage<TCaptured>, new()

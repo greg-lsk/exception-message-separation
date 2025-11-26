@@ -36,8 +36,8 @@ internal class ReflectionService : IReflectionService
 
     private static MethodInfo GetMessageCreationInfo<TCaptured>(Type messageType)
     {
-        var sourceType = typeof(MessageCreation);
-        var methodName = nameof(MessageCreation.Get);
+        var sourceType = typeof(MessageCreationCore);
+        var methodName = nameof(MessageCreationCore.Get);
         var bindingAttr = BindingFlags.Static | BindingFlags.NonPublic;
 
         var method = sourceType.GetMethod(methodName, bindingAttr)
