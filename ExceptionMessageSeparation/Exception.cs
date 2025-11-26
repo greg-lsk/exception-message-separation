@@ -1,37 +1,49 @@
-﻿using ExceptionMessageSeparation.Utils;
-using ExceptionMessageSeparation.MessageCreation;
+﻿using ExceptionMessageSeparation.MessageCreation;
 
 
 namespace ExceptionMessageSeparation;
 
-public class Exception<TCaptured> : Exception, IException<TCaptured>, IMessageCreationContext<TCaptured>
+public class Exception<TCapture> : Exception, IExceptionContext<TCapture>, IMessageCreationContext
 {
-    private readonly string? _message;
-    private readonly CreateMessage<TCaptured>? _createMessage;
+    private readonly string? _fallbackMessage;
+    private readonly ExceptionMessageBase? _message;
 
-    public TCaptured Captured { get; }
-
+    public TCapture? Captured { get; }
     public override string Message
     {
-        get 
+        get
         {
-            if (_message is not null) return _message;
-            if (_createMessage is not null) return _createMessage(this);
+            if (_fallbackMessage is not null) return _fallbackMessage;
+            if (_message is not null) return
+                    Captured is not null ?
+                        _message switch
+                        {
+                            ExceptionMessage w => w.For(),
+                            ExceptionMessage<TCapture> r => r.For(Captured),
+                            _ => throw new Exception("fatal flaw...")
+                        }
+                    : string.Empty;
             return string.Empty;
         }
     }
-
-    internal Exception(IReflectionService reflection, TCaptured captured, string? message = default, Exception? inner = default) 
-        : base(string.Empty, inner)
+    
+    public Exception(TCapture? capture, string? message = default, Exception? inner = default) 
+        : base(message, inner) 
     {
-        Captured = captured;
+        Captured = capture;
 
-        if (message != null) { _message = message; return; }
-        _createMessage = reflection.GetMessageCreationFor<TCaptured>();
+        _message = null;
+        _fallbackMessage = message is not null ? message : string.Empty;
     }
 
-    public Exception(TCaptured captured, string? message = default, Exception? inner = default)
-        : this(new ReflectionService(), captured, message, inner) 
-    { }
-    
+    public Exception(TCapture? capture, ExceptionMessageBase? message = default, Exception? inner = default)
+        : base(string.Empty, inner)
+    {
+        Captured = capture;
+
+        _message = message;
+        _message?.SetContext(this);
+
+        _fallbackMessage = null;
+    }
 }

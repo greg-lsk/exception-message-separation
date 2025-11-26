@@ -1,10 +1,15 @@
-﻿namespace ExceptionMessageSeparation.ExceptionBuilding;
+﻿using ExceptionMessageSeparation.MessageCreation;
+
+
+namespace ExceptionMessageSeparation.ExceptionBuilding;
 
 internal sealed class ExceptionBuilder<TCaptured>(TCaptured captured) : IExceptionBuilder<TCaptured>
 {
     private TCaptured Captured { get; } = captured;
 
     private string? Message { get; set; }
+    private ExceptionMessage<TCaptured>? CreateMessage {get; set;}
+    
     private Exception? InnerException { get; set; }
 
     private int? HResult { get; set; }
@@ -15,6 +20,12 @@ internal sealed class ExceptionBuilder<TCaptured>(TCaptured captured) : IExcepti
     public IExceptionBuilder<TCaptured> WithMessage(string message)
     {
         Message = message;
+        return this;
+    }
+
+    public IExceptionBuilder<TCaptured> WithMessage<TMessage>() where TMessage : ExceptionMessage<TCaptured>, new()
+    {
+        CreateMessage = new TMessage();
         return this;
     }
 
@@ -44,7 +55,13 @@ internal sealed class ExceptionBuilder<TCaptured>(TCaptured captured) : IExcepti
 
     public Exception<TCaptured> Build()
     {
-        var exception = new Exception<TCaptured>(Captured, Message, InnerException);
+        var creationKind = (Message is null, CreateMessage is null);
+        var exception = creationKind switch
+        {
+            (false, _)    => new Exception<TCaptured>(Captured, Message, InnerException),
+            (true, true)  => new Exception<TCaptured>(Captured, string.Empty, InnerException),
+            (true, false) => new Exception<TCaptured>(Captured, CreateMessage!, InnerException)
+        };
 
         if (Source != null) exception.Source = Source;
         if (HelpLink != null) exception.HelpLink = HelpLink;

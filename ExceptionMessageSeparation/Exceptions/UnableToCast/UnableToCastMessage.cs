@@ -3,9 +3,9 @@
 
 namespace ExceptionMessageSeparation.Exceptions.UnableToCast;
 
-internal class UnableToCastMessage<TFrom, TTo> : IExceptionMessage<UnableToCastInfo<TFrom, TTo>>
+internal class UnableToCastMessage<TFrom, TTo> : ExceptionMessage
 {
-    public string For(IMessageCreationContext<UnableToCastInfo<TFrom, TTo>> context) =>
+    public override string For() =>
     $"{Environment.NewLine}" +
     $"{Environment.NewLine}Could not complete cast..." +
     $"{Environment.NewLine}From:: {typeof(TFrom).Name}" +

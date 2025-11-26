@@ -1,15 +1,16 @@
-﻿using ExceptionMessageSeparation.MessageCreation;
+﻿using System.Collections.Immutable;
+using ExceptionMessageSeparation.MessageCreation;
 
 
 namespace ExceptionMessageSeparation.Exceptions.UnableToRetrieveMethod;
 
-public class UnableToRetrieveMethodMessage : IExceptionMessage<UnableToRetrieveMethodInfo>
+public class UnableToRetrieveMethodMessage : ExceptionMessage<(Type OfType, string MethodName, ImmutableArray<Type> ParameterTypes)>
 {
-    public string For(IMessageCreationContext<UnableToRetrieveMethodInfo> context) =>
+    public override string For(in (Type OfType, string MethodName, ImmutableArray<Type> ParameterTypes) captured) =>
     $"{Environment.NewLine}" +
     $"{Environment.NewLine}Failed to reflect on method..." +
-    $"{Environment.NewLine}Reflected Type:: {context.Captured.OfType}" +
-    $"{Environment.NewLine}MethodName::     {context.Captured.MethodName}" +
-    $"{Environment.NewLine}Parameters::     {string.Join(",", context.Captured.ParameterTypes)}" +
-    $"{Environment.NewLine}Type Verbose::   {context.Captured.OfType.FullName}";
+    $"{Environment.NewLine}Reflected Type:: {captured.OfType}" +
+    $"{Environment.NewLine}MethodName::     {captured.MethodName}" +
+    $"{Environment.NewLine}Parameters::     {string.Join(",", captured.ParameterTypes)}" +
+    $"{Environment.NewLine}Type Verbose::   {captured.OfType.FullName}";
 }

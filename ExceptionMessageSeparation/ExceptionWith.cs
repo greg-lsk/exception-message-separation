@@ -3,7 +3,7 @@
 
 namespace ExceptionMessageSeparation;
 
-public static class ExceptionWith<TCaptured>
+public static class ExceptionWith
 {
-    public static IExceptionBuilder<TCaptured> Capture(TCaptured captured) => new ExceptionBuilder<TCaptured>(captured);
+    public static IExceptionBuilder<TCapture> Capture<TCapture>(Func<TCapture> capture) => new ExceptionBuilder<TCapture>(capture());
 }

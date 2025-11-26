@@ -4,12 +4,12 @@ using System.Collections;
 
 namespace ExceptionMessageSeparation;
 
-public interface IException<TCaptured>
+public interface IExceptionContext<TCaptured>
 {
     public int HResult { get; set; }
 
     public string Message { get; }
-    public TCaptured Captured { get; }
+    public TCaptured? Captured { get; }
     public Exception? InnerException { get; }
 
     public string? Source { get; set; }

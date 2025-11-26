@@ -15,9 +15,8 @@ public class ForFallbackCompliance
     internal void LackofInnerException_CompliesTo_ExistingFallback()
     {
         var prebuiltException = new InvalidCastException();
-        var capturedInfo = new StubExceptionInfo(10);
-        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                        .Build();
+        var exception = ExceptionWith.Capture(() => 10)
+                                     .Build();
 
         var expectedInnerException = prebuiltException.InnerException;
         var assignedInnerException = exception.InnerException;
@@ -29,9 +28,8 @@ public class ForFallbackCompliance
     internal void LackofSource_CompliesTo_ExistingFallback()
     {
         var prebuiltException = new InvalidCastException();
-        var capturedInfo = new StubExceptionInfo(10);
-        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                        .Build();
+        var exception = ExceptionWith.Capture(() => 10)
+                                     .Build();
 
         var expectedSource = prebuiltException.Source;
         var assignedSource = exception.Source;
@@ -43,9 +41,8 @@ public class ForFallbackCompliance
     internal void LackofHelpLink_CompliesTo_ExistingFallback()
     {
         var prebuiltException = new InvalidCastException();
-        var capturedInfo = new StubExceptionInfo(10);
-        var exception = ExceptionWith<StubExceptionInfo>.Capture(capturedInfo)
-                                                        .Build();
+        var exception = ExceptionWith.Capture(() => 10)
+                                     .Build();
 
         var expectedHelpLink = prebuiltException.HelpLink;
         var assignedHelpLink = exception.HelpLink;
